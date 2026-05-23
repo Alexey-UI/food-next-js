@@ -22,15 +22,15 @@ export default observer(function WinePairingClient({ token }: Props) {
   const favoritesState = useFavorites(token);
   const { winePairingStore: store } = useStores();
 
-  const handleToggleFavorite = (recipe: RecipeListItem, element: Element) => {
+  const handleToggleFavorite = async (recipe: RecipeListItem, element: Element) => {
     if (!token) {
       router.push("/login");
       return;
     }
     if (!favoritesState.favorites.includes(recipe.id)) {
-      flyToFavorites(element);
+      await flyToFavorites(element);
     }
-    favoritesState.toggleFavorite(recipe);
+    await favoritesState.toggleFavorite(recipe);
   };
 
   return (

@@ -82,7 +82,7 @@ export const useFavorites = (token: string | null) => {
   return {
     favorites,
     favoriteRecipes,
-    toggleFavorite: toggleFavoriteMutation.mutate,
+    toggleFavorite: toggleFavoriteMutation.mutateAsync,
     loadingId,
     isLoading: favoritesQuery.isLoading,
   };

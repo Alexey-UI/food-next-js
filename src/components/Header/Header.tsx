@@ -27,6 +27,8 @@ const Header = () => {
   const { isAuthenticated, isLoading } = useAuth();
   const { favorites } = useFavorites(isAuthenticated ? getToken() : null);
 
+  console.log(favorites, "DEEEEBUUUUGGG");
+
   return (
     <header className={styles.header}>
       <div className={classNames(styles.container)}>

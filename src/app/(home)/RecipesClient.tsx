@@ -25,15 +25,22 @@ export default function RecipesClient({ token }: { token: string | null }) {
   const favoritesState = useFavorites(token);
   const { isAuthenticated } = useAuth();
 
-  const handleToggleFavorite = (recipe: RecipeListItem, element: Element) => {
+  const handleToggleFavorite = async (
+    recipe: RecipeListItem,
+    element: Element
+  ) => {
     if (!isAuthenticated) {
       router.push("/login");
       return;
     }
-    if (!favoritesState.favorites.includes(recipe.id)) {
-      flyToFavorites(element);
+
+    const isAdding = !favoritesState.favorites.includes(recipe.id);
+
+    if (isAdding) {
+      await flyToFavorites(element);
     }
-    favoritesState.toggleFavorite(recipe);
+
+    await favoritesState.toggleFavorite(recipe);
   };
 
   return (

@@ -28,13 +28,13 @@ const SearchBar = ({ updateParams }: SearchBarProps) => {
     searchStore.setValue(searchFromUrl);
   }, [searchFromUrl, searchStore]);
 
-    useEffect(() => {
-      if (debounced === searchFromUrl) return;
+  useEffect(() => {
+    if (debounced === searchFromUrl) return;
 
       updateParams({
         search: debounced || undefined,
       });
-    }, [debounced]);
+  }, [debounced]);
 
   const handleSearch = () => {
     updateParams({

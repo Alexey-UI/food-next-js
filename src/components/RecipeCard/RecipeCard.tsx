@@ -1,7 +1,6 @@
 "use client";
-
 import classNames from "classnames";
-import React from "react";
+import React, {useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,7 +14,7 @@ export type RecipeCardProps = {
   className?: string;
   recipe: RecipeListItem;
   isFavorite: boolean;
-  toggleFavorite: (recipe: RecipeListItem, element: Element) => void;
+  toggleFavorite: (recipe: RecipeListItem, element: Element) => Promise<void>;
   favoriteLoading: boolean;
 };
 
@@ -28,9 +27,19 @@ const RecipeCard = (
     favoriteLoading,
   }: RecipeCardProps) => {
 
-  const handleSaveClick = (e: React.MouseEvent) => {
-    if (favoriteLoading) return;
-    toggleFavorite(recipe, e.currentTarget);
+  const [animating, setAnimating] = useState(false);
+
+  console.log("RecipeCard rendered");
+
+  const handleSaveClick = async (e: React.MouseEvent) => {
+    if (favoriteLoading || animating) return;
+
+    try {
+      setAnimating(true);
+      await toggleFavorite(recipe, e.currentTarget);
+    } finally {
+      setAnimating(false);
+    }
   };
 
   const imageUrl =

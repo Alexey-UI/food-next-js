@@ -5,7 +5,7 @@ import styles from "./WineResults.module.scss";
 type Props = {
   recipes: RecipeListItem[];
   favorites: number[];
-  toggleFavorite: (recipe: RecipeListItem, element: Element) => void;
+  toggleFavorite: (recipe: RecipeListItem, element: Element) => Promise<void>;
   loadingId?: number;
 };
 

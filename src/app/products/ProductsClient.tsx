@@ -69,15 +69,19 @@ export default function ProductsClient({ token }: Props) {
   }, []);
 
   const handleToggleFavorite = useCallback(
-    (recipe: RecipeListItem, element: Element) => {
+    async (recipe: RecipeListItem, element: Element) => {
       if (!token) {
         router.push("/login");
         return;
       }
-      if (!favorites.includes(recipe.id)) {
-        flyToFavorites(element);
+
+      const isAdding = !favorites.includes(recipe.id);
+
+      if (isAdding) {
+        await flyToFavorites(element);
       }
-      toggleFavorite(recipe);
+
+      await toggleFavorite(recipe);
     },
     [token, toggleFavorite, favorites, router]
   );
